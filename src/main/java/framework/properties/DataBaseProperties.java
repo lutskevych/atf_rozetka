@@ -1,4 +1,4 @@
-package framework.dao;
+package framework.properties;
 
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
