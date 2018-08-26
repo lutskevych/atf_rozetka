@@ -1,17 +1,32 @@
 package framework.pageobjects;
 
 import framework.managers.WebDriverManager;
+import framework.utils.Wait;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.concurrent.TimeUnit;
+
+import static framework.properties.PropertyLoader.initProperties;
 
 public abstract class PageObject {
     protected WebDriver webDriver = WebDriverManager.getInstance().getDriver();
-    protected WebDriverWait wait = new WebDriverWait(webDriver, 10, 250);
+    protected WebDriverWait wait = new WebDriverWait(webDriver, initProperties.defaultWait(), 250);
 
     public PageObject() {
-        this.wait.ignoring(StaleElementReferenceException.class);
+        wait.ignoring(StaleElementReferenceException.class);
+        Wait.untilPageLoadComplete(webDriver, initProperties.defaultWait());
         PageFactory.initElements(webDriver, this);
+    }
+
+    public Alert switchToAlert() {
+        wait.withTimeout(5, TimeUnit.SECONDS);
+        wait.until(ExpectedConditions.alertIsPresent());
+        wait.withTimeout(initProperties.defaultWait(), TimeUnit.SECONDS);
+        return webDriver.switchTo().alert();
     }
 }

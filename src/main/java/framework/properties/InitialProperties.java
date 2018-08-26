@@ -9,5 +9,5 @@ public interface InitialProperties extends Config {
     String browser();
     String environment();
     boolean windowMaximize();
-    int implicitlyWait();
+    int defaultWait();
 }

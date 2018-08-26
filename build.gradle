@@ -16,4 +16,5 @@ dependencies {
     testCompile group: 'org.assertj', name: 'assertj-core-java8', version: '1.0.0m1'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
     compile group: 'org.aeonbits.owner', name: 'owner-java8', version: '1.0.10'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
 }

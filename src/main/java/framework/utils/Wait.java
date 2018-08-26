@@ -9,7 +9,7 @@ import static framework.properties.PropertyLoader.initProperties;
 
 public class Wait {
     public static void untilJQueryIsDone(WebDriver driver) {
-        untilJQueryIsDone(driver, initProperties.implicitlyWait());
+        untilJQueryIsDone(driver, initProperties.defaultWait());
     }
 
     public static void untilJQueryIsDone(WebDriver driver, long timeOutInSeconds) {
@@ -19,7 +19,7 @@ public class Wait {
     }
 
     public static void untilPageLoadComplete(WebDriver driver) {
-        untilPageLoadComplete(driver, initProperties.implicitlyWait());
+        untilPageLoadComplete(driver, initProperties.defaultWait());
     }
 
     public static void untilPageLoadComplete(WebDriver driver, long timeOutInSeconds) {
