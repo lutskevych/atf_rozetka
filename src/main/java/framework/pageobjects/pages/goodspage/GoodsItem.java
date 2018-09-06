@@ -42,7 +42,7 @@ public class GoodsItem extends PageObject {
     }
 
     public String getTitlePromo() {
-        WebElement e = getElement("p[class='g-i-tile-promotion-text'] a");
+        WebElement e = getElement("div[name='promotions_catalog_tile']");
         if (e == null) {
             return "no_promo_title";
         }
@@ -132,6 +132,7 @@ public class GoodsItem extends PageObject {
                 .setAdditionalPrice(getAdditionalPrice())
                 .setShortDescription(getShortDescription())
                 .setReference(getReference())
+                .setIsLimited(isLimited())
                 .build();
     }
 

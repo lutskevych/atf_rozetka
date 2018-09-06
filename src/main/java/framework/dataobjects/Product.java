@@ -15,6 +15,7 @@ public class Product {
     private String additionalPrice;
     private String shortDescription;
     private String reference;
+    private boolean isLimited;
 
     private Product(final Builder builder) {
         priceActiveIcon = builder.priceActiveIcon;
@@ -27,6 +28,7 @@ public class Product {
         additionalPrice = builder.additionalPrice;
         shortDescription = builder.shortDescription;
         reference = builder.reference;
+        isLimited = builder.isLimited;
     }
 
     public static class Builder {
@@ -40,6 +42,7 @@ public class Product {
         private String additionalPrice;
         private String shortDescription;
         private String reference;
+        private boolean isLimited;
 
         public Builder setPriceActiveIcon(String priceActiveIcon) {
             this.priceActiveIcon = priceActiveIcon;
@@ -91,6 +94,11 @@ public class Product {
             return this;
         }
 
+        public Builder setIsLimited(boolean isLimited) {
+            this.isLimited = isLimited;
+            return this;
+        }
+
         public Product build() {
             return new Product(this);
         }
@@ -113,8 +121,9 @@ public class Product {
                 .append("\nactualPrice: ").append(actualPrice).append(" ").append(actualPriceSign)
                 .append("\nadditionalPrice: ").append(additionalPrice)
                 .append("\nshortDescription: ").append(shortDescription)
-                .append("\nreference")
-                .append("=============================================")
+                .append("\nreference: ").append(reference)
+                .append("\nisLimited: ").append(isLimited)
+                .append("\n=============================================")
                 .toString();
     }
 }

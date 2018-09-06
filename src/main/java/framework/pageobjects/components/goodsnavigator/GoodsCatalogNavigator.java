@@ -1,6 +1,6 @@
 package framework.pageobjects.components.goodsnavigator;
 
-import framework.managers.WebDriverManager;
+import com.google.common.base.Function;
 import framework.pageobjects.PageObject;
 import framework.pageobjects.pages.goodspage.GoodsCategoryPage;
 import framework.pageobjects.pages.goodspage.GoodsPage;
@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class GoodsCatalogNavigator extends PageObject {
+    private WebElement mainGoodsCategoriesMenu;
 
     public GoodsCatalogNavigator openGoodsCatalog() {
         new Actions(webDriver)
@@ -17,8 +18,8 @@ public class GoodsCatalogNavigator extends PageObject {
                 .build()
                 .perform();
         wait.until((WebDriver d) -> {
-            WebElement goodsCategories = webDriver.findElement(By.id("m-main-ul"));
-            return !(goodsCategories.getAttribute("class").contains("hidden"));
+            mainGoodsCategoriesMenu = webDriver.findElement(By.id("m-main-ul"));
+            return !(mainGoodsCategoriesMenu.getAttribute("class").contains("hidden"));
         });
         return this;
     }
@@ -31,41 +32,27 @@ public class GoodsCatalogNavigator extends PageObject {
         return this;
     }
 
-    public enum GoodsCatalog {
-        NOTEBOOKS_AND_COMPUTERS("2416"),
-        SMARTPHONES_TV_AND_ELECTRONICS("3361"),
-        HOUSEHOLD_APPLIANCES("4306"),
-        GOODS_FOR_HOME("5300"),
-        TOOLS_AND_CAR_GOODS("6700"),
-        PLUMBING_AND_REPAIR("7806"),
-        COUNTRY_HOUSE_AND_GARDEN("8261"),
-        SPORTS_AND_HOBBIES("9017"),
-        CLOTHING_SHOES_AND_JEWELRY("10515"),
-        BEAUTY_AND_HEALTH("12258"),
-        CHILDREN_GOODS("13224"),
-        STATIONARY_AND_BOOKS("14127"),
-        ALCOHOLIC_BEVERAGES_AND_PRODUCTS("14939"),
-        GOODS_FOR_BUSINESS("15422"),
-        AIR_TICKETS_SERVICES_AND_OTHER("15954");
+    public GoodsCategoryPage openCategory(GoodsCategories goodsCategory) {
+        mainGoodsCategoriesMenu.findElement(By.id(goodsCategory.getCssId())).click();
+        return new GoodsCategoryPage();
+    }
 
-        private String locator;
-        private WebElement categoryItem;
-        private WebDriver driver;
+    public GoodsPage openSubCategory(GoodsCategories goodsCategory, String subCategoryCssSelector) {
+        System.out.println("Try to open subcategory"); //TODO remove it
+        WebElement subCategory = getSubCategoriesMenu(goodsCategory);
+        System.out.println("subMenu should be visible now"); //TODO remove it
+        subCategory.findElement(By.cssSelector(subCategoryCssSelector)).click();
+        return new GoodsPage();
+    }
 
-        GoodsCatalog(String elementLocator) {
-            driver = WebDriverManager.getInstance().getDriver();
-            locator = elementLocator;
-            categoryItem = driver.findElement(By.id(locator));
-        }
-
-        public GoodsPage openFromSubCatalog(By by) {
-            driver.findElement(by).click();
-            return new GoodsPage();
-        }
-
-        public GoodsCategoryPage select() {
-            categoryItem.click();
-            return new GoodsCategoryPage();
-        }
+    private WebElement getSubCategoriesMenu(GoodsCategories goodsCategory) {
+        System.out.println("Try to choose subcategory"); //TODO remove it
+        new Actions(webDriver)
+                .moveToElement(mainGoodsCategoriesMenu.findElement(By.id(goodsCategory.getCssId())))
+                .build()
+                .perform();
+        return wait.until(
+                (Function<WebDriver, WebElement>) driver ->
+                        mainGoodsCategoriesMenu.findElement(By.cssSelector("li.f-menu-l-i.hover")));
     }
 }

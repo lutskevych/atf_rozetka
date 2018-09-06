@@ -4,6 +4,7 @@ import framework.pageobjects.PageObject;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 
 public class HeaderBlock extends PageObject {
 
@@ -13,6 +14,6 @@ public class HeaderBlock extends PageObject {
     private WebElement bottomRow;
 
     public HeaderBlock() {
-        super();
+        PageFactory.initElements(webDriver, this);
     }
 }

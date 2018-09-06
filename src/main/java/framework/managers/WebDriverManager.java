@@ -17,21 +17,16 @@ public class WebDriverManager {
         return INSTANCE;
     }
 
-    public WebDriver createDriver(Drivers driver) {
-        webDriver.set(driver.initialize());
+    public WebDriver createDriver(Browsers browser) {
+        webDriver.set(browser.initialize());
         return webDriver.get();
-    }
-
-    public void closeDriver() {
-        webDriver.get().close();
-        webDriver.get().quit();
     }
 
     public WebDriver getDriver() {
         return webDriver.get();
     }
 
-    private enum Drivers {
+    public enum Browsers {
         FIREFOX {
             @Override
             public WebDriver initialize() {

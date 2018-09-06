@@ -8,15 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import static framework.properties.PropertyLoader.initProperties;
 
 public class Wait {
-    public static void untilJQueryIsDone(WebDriver driver) {
-        untilJQueryIsDone(driver, initProperties.defaultWait());
-    }
-
-    public static void untilJQueryIsDone(WebDriver driver, long timeOutInSeconds) {
-        until(driver,
-              (WebDriver d) -> (Boolean)((JavascriptExecutor) d).executeScript("return JQuery.active == 0"),
-              timeOutInSeconds);
-    }
 
     public static void untilPageLoadComplete(WebDriver driver) {
         untilPageLoadComplete(driver, initProperties.defaultWait());
@@ -24,7 +15,7 @@ public class Wait {
 
     public static void untilPageLoadComplete(WebDriver driver, long timeOutInSeconds) {
         until(driver,
-              (WebDriver d) -> (Boolean)((JavascriptExecutor) d).executeScript("return document.readyState==complete"),
+              (WebDriver d) -> (Boolean)((JavascriptExecutor) d).executeScript("return document.readyState=='complete'"),
               timeOutInSeconds);
     }
 

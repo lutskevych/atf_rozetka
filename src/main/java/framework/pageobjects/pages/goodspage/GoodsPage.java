@@ -8,11 +8,14 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static framework.properties.PropertyLoader.initProperties;
+
 public class GoodsPage extends BasePage {
     private WebElement catalogGoodsBlock;
 
     public GoodsPage(){
-        super();
+        Wait.untilPageLoadComplete(webDriver, initProperties.defaultWait());
+        catalogGoodsBlock = webDriver.findElement(By.cssSelector("div[name='goods_list']"));
     }
 
     public GoodsPage selectNext32Items() {
