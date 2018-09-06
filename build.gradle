@@ -3,7 +3,7 @@ version '1.0'
 
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -17,4 +17,11 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
     compile group: 'org.aeonbits.owner', name: 'owner-java8', version: '1.0.10'
     compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+}
+
+test {
+    useTestNG() {
+        useDefaultListeners = true
+        suites 'src/test/resources/suites/regression.xml'
+    }
 }
