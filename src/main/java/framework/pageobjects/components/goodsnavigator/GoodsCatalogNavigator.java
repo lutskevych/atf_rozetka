@@ -13,14 +13,18 @@ public class GoodsCatalogNavigator extends PageObject {
     private WebElement mainGoodsCategoriesMenu;
 
     public GoodsCatalogNavigator openGoodsCatalog() {
+        timer.startTimer();
         new Actions(webDriver)
                 .moveToElement(webDriver.findElement(By.id("fat_menu_btn")))
                 .build()
                 .perform();
+        timer.stopTimer().printElapsedTime("Move to fat menu button");
+        timer.startTimer();
         wait.until((WebDriver d) -> {
             mainGoodsCategoriesMenu = webDriver.findElement(By.id("m-main-ul"));
             return !(mainGoodsCategoriesMenu.getAttribute("class").contains("hidden"));
         });
+        timer.stopTimer().printElapsedTime("Wait for mainGoodsCategoriesMenu isn't hidden");
         return this;
     }
 
@@ -38,21 +42,28 @@ public class GoodsCatalogNavigator extends PageObject {
     }
 
     public GoodsPage openSubCategory(GoodsCategories goodsCategory, String subCategoryCssSelector) {
-        System.out.println("Try to open subcategory"); //TODO remove it
+        System.out.println("Try to open subcategory"); //TODO remove it after debugging
         WebElement subCategory = getSubCategoriesMenu(goodsCategory);
-        System.out.println("subMenu should be visible now"); //TODO remove it
+        System.out.println("subMenu should be visible now"); //TODO remove it after debugging
+        timer.startTimer();
         subCategory.findElement(By.cssSelector(subCategoryCssSelector)).click();
+        timer.stopTimer().printElapsedTime("Find " + subCategoryCssSelector +" in subCategoryMenu");
         return new GoodsPage();
     }
 
     private WebElement getSubCategoriesMenu(GoodsCategories goodsCategory) {
-        System.out.println("Try to choose subcategory"); //TODO remove it
+        System.out.println("Try to choose subcategory"); //TODO remove it after debugging
+        timer.startTimer();
         new Actions(webDriver)
                 .moveToElement(mainGoodsCategoriesMenu.findElement(By.id(goodsCategory.getCssId())))
                 .build()
                 .perform();
-        return wait.until(
+        timer.stopTimer().printElapsedTime("Move to item: " + goodsCategory);
+        timer.startTimer();
+        WebElement subMenu = wait.until(
                 (Function<WebDriver, WebElement>) driver ->
                         mainGoodsCategoriesMenu.findElement(By.cssSelector("li.f-menu-l-i.hover")));
+        timer.stopTimer().printElapsedTime("Wait for appears subCategories menu");
+        return subMenu;
     }
 }

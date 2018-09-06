@@ -1,6 +1,7 @@
 package framework.pageobjects;
 
 import framework.managers.WebDriverManager;
+import framework.utils.Timer;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static framework.properties.PropertyLoader.initProperties;
 
 public abstract class PageObject {
+    protected Timer timer = new Timer();
     protected WebDriver webDriver = WebDriverManager.getInstance().getDriver();
     protected WebDriverWait wait = new WebDriverWait(webDriver, initProperties.defaultWait(), 250);
 
