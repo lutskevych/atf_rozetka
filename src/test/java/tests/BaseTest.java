@@ -7,6 +7,8 @@ import framework.utils.Timer;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
+import java.util.concurrent.TimeUnit;
+
 import static framework.properties.PropertyLoader.initProperties;
 
 public class BaseTest {
@@ -19,6 +21,7 @@ public class BaseTest {
     public void beforeClass() {
         timer = new Timer();
         webDriver = WebDriverManager.getInstance().createDriver(Browsers.FIREFOX);
+        webDriver.manage().timeouts().pageLoadTimeout(initProperties.defaultWait(), TimeUnit.SECONDS);
         if (initProperties.windowMaximize()){
             webDriver.manage().window().maximize();
         }

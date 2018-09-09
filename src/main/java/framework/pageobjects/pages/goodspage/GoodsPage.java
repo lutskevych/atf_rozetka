@@ -17,9 +17,9 @@ public class GoodsPage extends BasePage {
 
     public GoodsPage(){
         System.out.println("GoodsPage constructor"); //TODO remove it after debugging
-        timer.startTimer();
-        Wait.untilPageLoadComplete(webDriver, initProperties.defaultWait());
-        timer.printElapsedTime("Wait for GoodsPage load complete");
+//        timer.startTimer();
+//        Wait.untilPageLoadComplete(webDriver, initProperties.defaultWait());
+//        timer.printElapsedTime("Wait for GoodsPage load complete");
 
         closePopupElementIfPresent();
     }
