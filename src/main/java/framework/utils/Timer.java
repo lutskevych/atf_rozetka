@@ -1,9 +1,7 @@
 package framework.utils;
 
-
 public class Timer {
     private long startTime;
-    private long stopTime;
     private double elapsedTime;
 
     public Timer startTimer(){
@@ -11,28 +9,14 @@ public class Timer {
         return this;
     }
 
-    public Timer stopTimer(){
-        stopTime = System.nanoTime();
-        return this;
-    }
-
     public double getElapsedTime() {
-        return elapsedTime = (stopTime - startTime) / 1000000000.0;
-    }
-
-    public void printElapsedTime() {
-        printElapsedTime("");
+        elapsedTime = (System.nanoTime() - startTime) / 1000000000.0;
+        return elapsedTime;
     }
 
     public void printElapsedTime(String message) {
         StringBuilder sb = new StringBuilder()
-                .append(">>>ELAPSED_TIME: ").append(message).append(" = ").append(getElapsedTime()).append(" seconds");
+                .append("ELAPSED_TIME: ").append(message).append(" = ").append(getElapsedTime()).append(" seconds");
         System.out.println(sb.toString());
-    }
-
-    public Timer resetTimer() {
-        startTime = 0;
-        stopTime = 0;
-        return this;
     }
 }

@@ -20,7 +20,11 @@ public class GoodsItem extends PageObject {
     }
 
     public String getPriceActiveIcon() {
-        String classValue = getElement("i[name=prices_active_element_original]").getAttribute("class");
+        WebElement e = getElement("i[name=prices_active_element_original]");
+        if (e == null) {
+            return "no_icon";
+        }
+        String classValue = e.getAttribute("class");
         if (classValue == null) {
             return "no_icon";
         }
@@ -46,15 +50,17 @@ public class GoodsItem extends PageObject {
         if (e == null) {
             return "no_promo_title";
         }
-        return e.getText();
+        String result = e.getText();
+        return result;
     }
 
     public String getTitle() {
-        WebElement e = getElement("p[class='g-i-tile-i-title clearfix'] a");
+        WebElement e = getElement("div.g-i-tile-i-title.clearfix a");
         if (e == null) {
             return "no_title";
         }
-        return e.getText();
+        String result = e.getText();
+        return result;
     }
 
     public float getOldPriceValue() {
@@ -80,7 +86,8 @@ public class GoodsItem extends PageObject {
         if (e == null) {
             return "no_sign";
         }
-        return e.getText();
+        String result = e.getText();
+        return result;
     }
 
     public String getActualPriceSign() {
@@ -88,7 +95,8 @@ public class GoodsItem extends PageObject {
         if (e == null) {
             return "no_sign";
         }
-        return e.getText();
+        String result = e.getText();
+        return result;
     }
 
     public String getAdditionalPrice() {
@@ -96,7 +104,8 @@ public class GoodsItem extends PageObject {
         if (e == null) {
             return "no_additional_price";
         }
-        return e.getText();
+        String result = e.getText();
+        return result;
     }
 
     public String getShortDescription() {
@@ -104,15 +113,17 @@ public class GoodsItem extends PageObject {
         if (e == null) {
             return "no_short_description";
         }
-        return e.getText();
+        String result = e.getAttribute("innerHTML");
+        return result;
     }
 
     public String getReference() {
-        WebElement e = getElement("p[class='g-i-tile-i-title clearfix'] a");
+        WebElement e = getElement("div.g-i-tile-i-title.clearfix a");
         if (e == null) {
             return "no_reference";
         }
-        return e.getAttribute("href");
+        String result = e.getAttribute("href");
+        return result;
     }
 
     public GoodsItem addToCart() {

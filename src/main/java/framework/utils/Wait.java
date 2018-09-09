@@ -5,13 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static framework.properties.PropertyLoader.initProperties;
-
 public class Wait {
-
-    public static void untilPageLoadComplete(WebDriver driver) {
-        untilPageLoadComplete(driver, initProperties.defaultWait());
-    }
 
     public static void untilPageLoadComplete(WebDriver driver, long timeOutInSeconds) {
         until(driver,

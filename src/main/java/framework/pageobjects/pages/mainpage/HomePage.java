@@ -11,6 +11,7 @@ public class HomePage extends BasePage {
         webDriver.get(url);
         timer.startTimer();
         Wait.untilPageLoadComplete(webDriver, initProperties.defaultWait());
-        timer.stopTimer().printElapsedTime("Wait for HomePage load complete");
+        timer.printElapsedTime("Wait for HomePage load complete");
+        closePopupElementIfPresent();
     }
 }
