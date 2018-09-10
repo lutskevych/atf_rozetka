@@ -26,11 +26,11 @@ public class GoodsItem extends PageObject {
         }
         String classValue = e.getAttribute("class");
         if (classValue == null) {
-            return "no_icon";
+            return "no_icon_class_attribute_not_found";
         }
         int startInd = classValue.indexOf("g-tag-icon-middle-");
         if (startInd == -1) {
-            return "no icon";
+            return "no_icon_unknown_class_attribute_value";
         }
         int endInd = classValue.indexOf("sprite");
         endInd = (endInd == -1) ? (classValue.length() - 1) : (endInd - 1);
