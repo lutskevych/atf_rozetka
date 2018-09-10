@@ -9,4 +9,5 @@ public interface InitialProperties extends Config {
     String environment();
     boolean windowMaximize();
     int defaultWait();
+    int pageLoadWait();
 }

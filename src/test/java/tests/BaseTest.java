@@ -5,7 +5,10 @@ import framework.managers.WebDriverManager.Browsers;
 import framework.pageobjects.pages.mainpage.HomePage;
 import framework.utils.Timer;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,9 +22,8 @@ public class BaseTest {
     @BeforeClass
 //    @Parameters("browser")
     public void beforeClass() {
-        timer = new Timer();
-        webDriver = WebDriverManager.getInstance().createDriver(Browsers.FIREFOX);
-        webDriver.manage().timeouts().pageLoadTimeout(initProperties.defaultWait(), TimeUnit.SECONDS);
+        webDriver = WebDriverManager.getInstance().createDriver(Browsers.FIREFOX); //TODO change after debugging
+        webDriver.manage().timeouts().pageLoadTimeout(initProperties.pageLoadWait(), TimeUnit.SECONDS);
         if (initProperties.windowMaximize()){
             webDriver.manage().window().maximize();
         }

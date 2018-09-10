@@ -5,6 +5,7 @@ import com.google.common.base.Predicate;
 import framework.managers.WebDriverManager;
 import framework.utils.Timer;
 import framework.utils.Wait;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 import static framework.properties.PropertyLoader.initProperties;
 
 public abstract class PageObject {
-    protected Timer timer = new Timer();
+    protected Logger logger = Logger.getLogger(this.getClass().getName());
     protected WebDriver webDriver = WebDriverManager.getInstance().getDriver();
     protected WebDriverWait wait = new WebDriverWait(webDriver, initProperties.defaultWait(), 250);
 
@@ -29,18 +30,14 @@ public abstract class PageObject {
     }
 
     protected void closePopupElementIfPresent() {
-        System.out.println("closePopupElementIfPresent()");
-        timer.startTimer();
+        logger.debug("closePopupElementIfPresent");
         List<WebElement> elements = webDriver.findElements(By.cssSelector("a.exponea-banner.exponea-popup-banner.exponea-animate"));
-        timer.printElapsedTime("Find popup element");
         if (elements.size() != 0) {
-            System.out.println("Popup is found!");
-            timer.startTimer();
+            logger.debug("Popup is found");
             WebElement closeBtn = elements.get(0).findElement(By.cssSelector("span.exponea-close-cross"));
             waitUntilWithTimeout(ExpectedConditions.visibilityOf(closeBtn), 2);
             waitUntilWithTimeout(ExpectedConditions.visibilityOf(closeBtn), 3);
             closeBtn.click();
-            timer.printElapsedTime("Find and click on close button");
         }
     }
 

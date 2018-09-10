@@ -9,26 +9,26 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import static java.lang.String.format;
+
 public class GoodsCatalogNavigator extends PageObject {
     private WebElement mainGoodsCategoriesMenu;
 
     public GoodsCatalogNavigator openGoodsCatalog() {
-        timer.startTimer();
+        logger.debug("openGoodsCatalog");
         new Actions(webDriver)
                 .moveToElement(webDriver.findElement(By.id("fat_menu_btn")))
                 .build()
                 .perform();
-        timer.printElapsedTime("Move to fat menu button");
-        timer.startTimer();
         wait.until((WebDriver d) -> {
             mainGoodsCategoriesMenu = webDriver.findElement(By.id("m-main-ul"));
             return !(mainGoodsCategoriesMenu.getAttribute("class").contains("hidden"));
         });
-        timer.printElapsedTime("Wait for mainGoodsCategoriesMenu isn't hidden");
         return this;
     }
 
     public GoodsCatalogNavigator closeGoodsCatalog() {
+        logger.debug("closeGoodsCatalog");
         new Actions(webDriver)
                 .moveToElement(webDriver.findElement(By.tagName("header")))
                 .build()
@@ -37,32 +37,27 @@ public class GoodsCatalogNavigator extends PageObject {
     }
 
     public GoodsCategoryPage openCategory(GoodsCategories goodsCategory) {
+        logger.debug("openCategory");
         mainGoodsCategoriesMenu.findElement(By.id(goodsCategory.getCssId())).click();
         return new GoodsCategoryPage();
     }
 
     public GoodsPage openSubCategory(GoodsCategories goodsCategory, String subCategoryCssSelector) {
-        System.out.println("Try to open subcategory"); //TODO remove it after debugging
+        logger.debug(format("openSubCategory {%s} for category %s", subCategoryCssSelector, goodsCategory));
         WebElement subCategory = getSubCategoriesMenu(goodsCategory);
-        timer.startTimer();
         subCategory.findElement(By.cssSelector(subCategoryCssSelector)).click();
-        timer.printElapsedTime("Find " + subCategoryCssSelector +" in subCategoryMenu");
         return new GoodsPage();
     }
 
     private WebElement getSubCategoriesMenu(GoodsCategories goodsCategory) {
-        System.out.println("Try to choose subcategory"); //TODO remove it after debugging
-        timer.startTimer();
+        logger.debug(format("getSubCategoriesMenu of %s", goodsCategory));
         new Actions(webDriver)
                 .moveToElement(mainGoodsCategoriesMenu.findElement(By.id(goodsCategory.getCssId())))
                 .build()
                 .perform();
-        timer.printElapsedTime("Move to item: " + goodsCategory);
-        timer.startTimer();
         WebElement subMenu = wait.until(
                 (Function<WebDriver, WebElement>) driver ->
                         mainGoodsCategoriesMenu.findElement(By.cssSelector("li.f-menu-l-i.hover")));
-        timer.printElapsedTime("Wait for appears subCategories menu");
         return subMenu;
     }
 }
