@@ -16,7 +16,6 @@ public class SmartphonePageTest extends BaseTest {
         GoodsCatalogNavigator catalog = mainPage.getGoodsCatalogNavigator().openGoodsCatalog();
         GoodsPage page = catalog.openSubCategory(GoodsCategories.SMARTPHONES_TV_AND_ELECTRONICS, "a[href*='=smartfon/']");
         List<GoodsItem> result = page.getGoodsItemsFromPagesWithActionIcon(3, GoodsItem.PRICE_ACTIVE_ICON_POPULAR);
-//        List<GoodsItem> result = page.getAllGoodsItemsFromPages(3);
         for (GoodsItem e : result) {
             String p = e.saveAsProduct().toString();
             System.out.println(p);
