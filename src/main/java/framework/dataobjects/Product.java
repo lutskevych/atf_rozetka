@@ -17,7 +17,9 @@ public class Product {
     private String reference;
     private boolean isLimited;
 
-    private Product(final Builder builder) {
+    public Product() {}
+
+    public Product(final Builder builder) {
         priceActiveIcon = builder.priceActiveIcon;
         titlePromo = builder.titlePromo;
         title = builder.title;
