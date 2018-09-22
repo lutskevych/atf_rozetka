@@ -26,10 +26,10 @@ public class MySQLGoodsDAO implements GoodsDAO {
 
     public Collection<Product> selectProductsByPriceCategory(String priceCategoryName) {
         String query = format(
-                "SELECT g.title, g.price, g.price_sign, pc.category_name" +
-                "FROM goods g" +
-                "LEFT JOIN price_categories pc" +
-                "ON g.price_category_id = pc.id" +
+                "SELECT g.title, g.price, g.price_sign, pc.category_name " +
+                "FROM goods g " +
+                "LEFT JOIN price_categories pc " +
+                "ON g.price_category_id = pc.id " +
                 "WHERE pc.category_name = '%s';", priceCategoryName);
         try {
             statement = connection.createStatement();
@@ -37,17 +37,17 @@ public class MySQLGoodsDAO implements GoodsDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return convertToProductsList(resultSet);
+        return convertToProductList(resultSet);
     }
 
-    private List<Product> convertToProductsList(ResultSet rs) {
+    private List<Product> convertToProductList(ResultSet rs) {
         List<Product> resultList = new ArrayList<>();
         List<String> headers = new ArrayList<>();
         ResultSetMetaData metaData;
         Product product;
         try {
             metaData = rs.getMetaData();
-            for (int i = 0; i <= metaData.getColumnCount(); i++) {
+            for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 headers.add(metaData.getColumnName(i));
             }
             while (rs.next()) {
