@@ -39,19 +39,19 @@ public class GoodsPage extends BasePage {
         return this;
     }
 
-    public List<GoodsItem> getAllGoodsItemsFromPages(int pagesNumber) {
-        List<GoodsItem> resultList = new ArrayList<>();
+    public List<GoodsItemBlock> getAllGoodsItemsFromPages(int pagesNumber) {
+        List<GoodsItemBlock> resultList = new ArrayList<>();
         List<WebElement> sourceList = getGoodsItemElementsFromPages(pagesNumber);
         for (WebElement e : sourceList) {
-            resultList.add(new GoodsItem(e));
+            resultList.add(new GoodsItemBlock(e));
         }
         return resultList;
     }
 
-    public List<GoodsItem> getGoodsItemsFromPagesWithActionIcon(int pagesNumber, String priceActionIconName) {
-        List<GoodsItem> resultList = new ArrayList<>();
-        List<GoodsItem> sourceList = getAllGoodsItemsFromPages(pagesNumber);
-        for (GoodsItem e : sourceList) {
+    public List<GoodsItemBlock> getGoodsItemsFromPagesWithActionIcon(int pagesNumber, String priceActionIconName) {
+        List<GoodsItemBlock> resultList = new ArrayList<>();
+        List<GoodsItemBlock> sourceList = getAllGoodsItemsFromPages(pagesNumber);
+        for (GoodsItemBlock e : sourceList) {
             if (e.getPriceActiveIcon().equals(priceActionIconName)) {
                 resultList.add(e);
             }

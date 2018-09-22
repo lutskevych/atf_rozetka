@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public class Product {
+public class GoodsItem {
     private String priceActiveIcon;
     private String titlePromo;
     private String title;
@@ -17,9 +17,9 @@ public class Product {
     private String reference;
     private boolean isLimited;
 
-    public Product() {}
+    public GoodsItem() {}
 
-    public Product(final Builder builder) {
+    public GoodsItem(final Builder builder) {
         priceActiveIcon = builder.priceActiveIcon;
         titlePromo = builder.titlePromo;
         title = builder.title;
@@ -101,8 +101,8 @@ public class Product {
             return this;
         }
 
-        public Product build() {
-            return new Product(this);
+        public GoodsItem build() {
+            return new GoodsItem(this);
         }
     }
 

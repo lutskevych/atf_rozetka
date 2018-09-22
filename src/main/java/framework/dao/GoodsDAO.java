@@ -1,10 +1,9 @@
 package framework.dao;
 
-import framework.dataobjects.Product;
+import framework.dataobjects.GoodsItem;
 
 import java.util.Collection;
 
 public interface GoodsDAO {
-    GoodsDAO selectProduct(Product product);
-    Collection<Product> selectProductsByPriceCategory(String priceCategoryName);
+    Collection<GoodsItem> selectGoodsItemsByPriceCategory(String priceCategoryName);
 }

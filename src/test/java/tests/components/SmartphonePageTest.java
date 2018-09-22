@@ -1,11 +1,11 @@
 package tests.components;
 
 import framework.dao.mysql.MySQLGoodsDAO;
-import framework.dao.mysql.MySQLTestedProductsDAO;
-import framework.dataobjects.Product;
+import framework.dao.mysql.MySQLTestedGoodsItemsDAO;
+import framework.dataobjects.GoodsItem;
 import framework.pageobjects.components.goodsnavigator.GoodsCatalogNavigator;
 import framework.pageobjects.components.goodsnavigator.GoodsCategories;
-import framework.pageobjects.pages.goodspage.GoodsItem;
+import framework.pageobjects.pages.goodspage.GoodsItemBlock;
 import framework.pageobjects.pages.goodspage.GoodsPage;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.BeforeMethod;
@@ -19,24 +19,24 @@ public class SmartphonePageTest extends BaseTest {
 
     @BeforeMethod
     public void clearFoundProductsTable() {
-        new MySQLTestedProductsDAO().deleteAllProducts();
+        new MySQLTestedGoodsItemsDAO().deleteAllGoodsItems();
     }
 
     @Test
     public void topPopularGoods() {
         GoodsCatalogNavigator catalog = mainPage.getGoodsCatalogNavigator().openGoodsCatalog();
         GoodsPage page = catalog.openSubCategory(GoodsCategories.SMARTPHONES_TV_AND_ELECTRONICS, "a[href*='=smartfon/']");
-        List<GoodsItem> result = page.getGoodsItemsFromPagesWithActionIcon(1, GoodsItem.PRICE_ACTIVE_ICON_POPULAR);
+        List<GoodsItemBlock> result = page.getGoodsItemsFromPagesWithActionIcon(1, GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
 
-        List<Product> actualProducts = new ArrayList<>();
-        for (GoodsItem e : result) {
-            actualProducts.add(e.saveAsProduct());
+        List<GoodsItem> actualGoodsItems = new ArrayList<>();
+        for (GoodsItemBlock e : result) {
+            actualGoodsItems.add(e.createGoodsItemObject());
         }
 
-        List<Product> expectedProducts = (ArrayList)new MySQLGoodsDAO().selectProductsByPriceCategory(GoodsItem.PRICE_ACTIVE_ICON_POPULAR);
-        new MySQLTestedProductsDAO().addProducts(actualProducts);
+        List<GoodsItem> expectedGoodsItems = (ArrayList)new MySQLGoodsDAO().selectGoodsItemsByPriceCategory(GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
+        new MySQLTestedGoodsItemsDAO().addGoodsItems(actualGoodsItems);
 
-        Assertions.assertThat(actualProducts.size()).isEqualTo(expectedProducts.size());
+        Assertions.assertThat(actualGoodsItems.size()).isEqualTo(expectedGoodsItems.size());
 
 
     }

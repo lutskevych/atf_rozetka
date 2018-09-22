@@ -2,7 +2,7 @@ package framework.dao.mysql;
 
 import framework.dao.GoodsDAO;
 import framework.dao.MySQLDAOFactory;
-import framework.dataobjects.Product;
+import framework.dataobjects.GoodsItem;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,44 +19,44 @@ public class MySQLGoodsDAO implements GoodsDAO {
     public MySQLGoodsDAO() {
         connection = MySQLDAOFactory.getConnection();
     }
-    public GoodsDAO selectProduct(Product product) {
-//        TODO
-        return null;
-    }
 
-    public Collection<Product> selectProductsByPriceCategory(String priceCategoryName) {
+    public Collection<GoodsItem> selectGoodsItemsByPriceCategory(String priceCategoryName) {
         String query = format(
-                "SELECT g.title, g.price, g.price_sign, pc.category_name " +
-                "FROM goods g " +
-                "LEFT JOIN price_categories pc " +
-                "ON g.price_category_id = pc.id " +
-                "WHERE pc.category_name = '%s';", priceCategoryName);
+                        "SELECT g.title, g.description, g.reference, p.last_price, p.actual_price, p.extra_price, c.sign " +
+                        "FROM goods g " +
+                        "LEFT JOIN price p " +
+                        "ON g.id = p.product_id " +
+                        "LEFT JOIN price_categories pc " +
+                        "ON g.price_category_id = pc.id " +
+                        "LEFT JOIN currency c " +
+                        "ON p.price_sign_id = c.id " +
+                        "WHERE pc.category_name = '%s';", priceCategoryName);
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return convertToProductList(resultSet);
+        return convertToGoodsItemList(resultSet);
     }
 
-    private List<Product> convertToProductList(ResultSet rs) {
-        List<Product> resultList = new ArrayList<>();
+    private List<GoodsItem> convertToGoodsItemList(ResultSet rs) {
+        List<GoodsItem> resultList = new ArrayList<>();
         List<String> headers = new ArrayList<>();
         ResultSetMetaData metaData;
-        Product product;
+        GoodsItem GoodsItem;
         try {
             metaData = rs.getMetaData();
             for (int i = 1; i <= metaData.getColumnCount(); i++) {
                 headers.add(metaData.getColumnName(i));
             }
             while (rs.next()) {
-                product = new Product();
-                if (headers.contains("title")) product.setTitle(rs.getString("title"));
-                if (headers.contains("description")) product.setShortDescription(rs.getString("description"));
-                if (headers.contains("price")) product.setActualPrice(rs.getDouble("price"));
-                if (headers.contains("price_sign")) product.setActualPriceSign(rs.getString("price_sign"));
-                resultList.add(product);
+                GoodsItem = new GoodsItem();
+                if (headers.contains("title")) GoodsItem.setTitle(rs.getString("title"));
+                if (headers.contains("description")) GoodsItem.setShortDescription(rs.getString("description"));
+                if (headers.contains("price")) GoodsItem.setActualPrice(rs.getDouble("price"));
+                if (headers.contains("price_sign")) GoodsItem.setActualPriceSign(rs.getString("price_sign"));
+                resultList.add(GoodsItem);
             }
         } catch (SQLException e) {
             e.printStackTrace();

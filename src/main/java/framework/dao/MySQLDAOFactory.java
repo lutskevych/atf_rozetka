@@ -1,7 +1,7 @@
 package framework.dao;
 
 import framework.dao.mysql.MySQLGoodsDAO;
-import framework.dao.mysql.MySQLTestedProductsDAO;
+import framework.dao.mysql.MySQLTestedGoodsItemsDAO;
 import framework.properties.DataBaseProperties;
 import org.aeonbits.owner.ConfigFactory;
 
@@ -25,8 +25,8 @@ public class MySQLDAOFactory extends DAOFactory {
             e.printStackTrace();
         }
     }
-    public TestedProductsDAO getProductDAO() {
-        return new MySQLTestedProductsDAO();
+    public TestedGoodsItemDAO getProductDAO() {
+        return new MySQLTestedGoodsItemsDAO();
     }
 
     public GoodsDAO getGoodsDAO() {

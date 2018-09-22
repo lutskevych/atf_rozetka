@@ -1,13 +1,13 @@
 package framework.pageobjects.pages.goodspage;
 
-import framework.dataobjects.Product;
+import framework.dataobjects.GoodsItem;
 import framework.pageobjects.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class GoodsItem extends PageObject {
+public class GoodsItemBlock extends PageObject {
     public static final String PRICE_ACTIVE_ICON_NOVELTY = "novelty";
     public static final String PRICE_ACTIVE_ICON_POPULAR = "popularity";
     public static final String PRICE_ACTIVE_ICON_ACTION = "action";
@@ -15,7 +15,7 @@ public class GoodsItem extends PageObject {
 
     private WebElement goodsItemElement;
 
-    public GoodsItem(WebElement goodsItemElement) {
+    public GoodsItemBlock(WebElement goodsItemElement) {
         this.goodsItemElement = goodsItemElement;
     }
 
@@ -126,13 +126,13 @@ public class GoodsItem extends PageObject {
         return result;
     }
 
-    public GoodsItem addToCart() {
+    public GoodsItemBlock addToCart() {
         getElement("button[name='topurchasesfromcatalog']").click();
         return this;
     }
 
-    public Product saveAsProduct() {
-        return new Product.Builder()
+    public GoodsItem createGoodsItemObject() {
+        return new GoodsItem.Builder()
                 .setPriceActiveIcon(getPriceActiveIcon())
                 .setTitle(getTitle())
                 .setTitlePromo(getTitlePromo())
