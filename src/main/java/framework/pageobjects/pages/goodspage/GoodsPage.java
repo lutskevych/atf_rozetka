@@ -1,6 +1,7 @@
 package framework.pageobjects.pages.goodspage;
 
 import com.google.common.base.Function;
+import framework.dataobjects.GoodsItem;
 import framework.pageobjects.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -48,12 +49,12 @@ public class GoodsPage extends BasePage {
         return resultList;
     }
 
-    public List<GoodsItemBlock> getGoodsItemsFromPagesWithActionIcon(int pagesNumber, String priceActionIconName) {
-        List<GoodsItemBlock> resultList = new ArrayList<>();
+    public List<GoodsItem> getGoodsItemsFromPagesWithActionIcon(int pagesNumber, String priceActionIconName) {
+        List<GoodsItem> resultList = new ArrayList<>();
         List<GoodsItemBlock> sourceList = getAllGoodsItemsFromPages(pagesNumber);
         for (GoodsItemBlock e : sourceList) {
             if (e.getPriceActiveIcon().equals(priceActionIconName)) {
-                resultList.add(e);
+                resultList.add(e.createGoodsItemObject());
             }
         }
         return resultList;

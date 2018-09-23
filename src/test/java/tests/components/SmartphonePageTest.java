@@ -26,16 +26,9 @@ public class SmartphonePageTest extends BaseTest {
     public void topPopularGoods() {
         GoodsCatalogNavigator catalog = mainPage.getGoodsCatalogNavigator().openGoodsCatalog();
         GoodsPage page = catalog.openSubCategory(GoodsCategories.SMARTPHONES_TV_AND_ELECTRONICS, "a[href*='=smartfon/']");
-        List<GoodsItemBlock> result = page.getGoodsItemsFromPagesWithActionIcon(1, GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
-
-        List<GoodsItem> actualGoodsItems = new ArrayList<>();
-        for (GoodsItemBlock e : result) {
-            actualGoodsItems.add(e.createGoodsItemObject());
-        }
-
+        List<GoodsItem> actualGoodsItems = page.getGoodsItemsFromPagesWithActionIcon(1, GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
         List<GoodsItem> expectedGoodsItems = (ArrayList)goodsDAO.selectGoodsItemsByPriceCategory(GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
         testedGoodsItemDAO.addGoodsItems(actualGoodsItems);
-
         Assertions.assertThat(actualGoodsItems.size()).isEqualTo(expectedGoodsItems.size());
 
 
