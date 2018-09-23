@@ -13,9 +13,6 @@ import java.util.Collection;
 import static java.util.Arrays.asList;
 
 public class MySQLTestedGoodsItemsDAO implements TestedGoodsItemDAO {
-    private final String addQuery = "INSERT INTO test_found_goods VALUES (?,?,?,?,?,?,?,?,?);";
-    private final String deleteAllQuery = "DELETE FROM test_found_goods";
-
     PreparedStatement ps;
     Statement statement;
     Connection connection;
@@ -30,7 +27,7 @@ public class MySQLTestedGoodsItemsDAO implements TestedGoodsItemDAO {
 
     public void addGoodsItems(Collection<GoodsItem> GoodsItems) {
         try {
-            ps = connection.prepareStatement(addQuery);
+            ps = connection.prepareStatement("INSERT INTO test_found_goods VALUES (?,?,?,?,?,?,?,?,?);");
             for (GoodsItem goodsItem : GoodsItems) {
                 ps.setString(1, goodsItem.getTitle());
                 ps.setString(2, goodsItem.getShortDescription());
@@ -53,7 +50,7 @@ public class MySQLTestedGoodsItemsDAO implements TestedGoodsItemDAO {
     public void deleteAllGoodsItems() {
         try {
             statement = connection.createStatement();
-            statement.executeQuery(deleteAllQuery);
+            statement.executeUpdate("DELETE FROM test_found_goods;");
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();

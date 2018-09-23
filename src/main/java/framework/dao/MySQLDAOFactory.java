@@ -25,7 +25,7 @@ public class MySQLDAOFactory extends DAOFactory {
             e.printStackTrace();
         }
     }
-    public TestedGoodsItemDAO getProductDAO() {
+    public TestedGoodsItemDAO getTestedGoodsItemDAO() {
         return new MySQLTestedGoodsItemsDAO();
     }
 

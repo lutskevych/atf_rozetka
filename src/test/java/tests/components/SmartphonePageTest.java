@@ -33,8 +33,8 @@ public class SmartphonePageTest extends BaseTest {
             actualGoodsItems.add(e.createGoodsItemObject());
         }
 
-        List<GoodsItem> expectedGoodsItems = (ArrayList)new MySQLGoodsDAO().selectGoodsItemsByPriceCategory(GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
-        new MySQLTestedGoodsItemsDAO().addGoodsItems(actualGoodsItems);
+        List<GoodsItem> expectedGoodsItems = (ArrayList)goodsDAO.selectGoodsItemsByPriceCategory(GoodsItemBlock.PRICE_ACTIVE_ICON_POPULAR);
+        testedGoodsItemDAO.addGoodsItems(actualGoodsItems);
 
         Assertions.assertThat(actualGoodsItems.size()).isEqualTo(expectedGoodsItems.size());
 
