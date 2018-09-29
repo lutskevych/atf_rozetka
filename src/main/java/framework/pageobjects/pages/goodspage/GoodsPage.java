@@ -2,7 +2,7 @@ package framework.pageobjects.pages.goodspage;
 
 import com.google.common.base.Function;
 import framework.dataobjects.GoodsItem;
-import framework.pageobjects.pages.BasePage;
+import framework.pageobjects.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,7 +12,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class GoodsPage extends BasePage {
+public class GoodsPage extends PageObject {
 
     private WebElement catalogGoodsBlock;
 
@@ -45,6 +45,20 @@ public class GoodsPage extends BasePage {
         List<WebElement> sourceList = getGoodsItemElementsFromPages(pagesNumber);
         for (WebElement e : sourceList) {
             resultList.add(new GoodsItemBlock(e));
+        }
+        return resultList;
+    }
+
+    public List<GoodsItem> getGoodsItemsTitleWithActualPriceFromPagesByActionIcon(int pagesNumber, String priceActionIconName) {
+        List<GoodsItem> resultList = new ArrayList<>();
+        List<GoodsItemBlock> sourceList = getAllGoodsItemsFromPages(pagesNumber);
+        for (GoodsItemBlock e : sourceList) {
+            if (e.getPriceActiveIcon().equals(priceActionIconName)) {
+                resultList.add(new GoodsItem.Builder()
+                        .setTitle(e.getTitle())
+                        .setActualPrice(e.getActualPriceValue())
+                        .build());
+            }
         }
         return resultList;
     }

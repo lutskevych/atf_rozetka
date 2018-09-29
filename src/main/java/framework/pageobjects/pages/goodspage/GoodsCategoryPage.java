@@ -1,7 +1,7 @@
 package framework.pageobjects.pages.goodspage;
 
-import framework.pageobjects.pages.BasePage;
+import framework.pageobjects.PageObject;
 
-public class GoodsCategoryPage extends BasePage {
+public class GoodsCategoryPage extends PageObject {
 
 }

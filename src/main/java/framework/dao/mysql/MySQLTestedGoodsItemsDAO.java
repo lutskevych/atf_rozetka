@@ -21,23 +21,24 @@ public class MySQLTestedGoodsItemsDAO implements TestedGoodsItemDAO {
         connection = MySQLDAOFactory.getConnection();
     }
 
-    public void addGoodsItem(GoodsItem GoodsItem) {
-        addGoodsItems(asList(GoodsItem));
+    public void addGoodsItem(GoodsItem GoodsItem, String testCaseId) {
+        addGoodsItems(asList(GoodsItem), testCaseId);
     }
 
-    public void addGoodsItems(Collection<GoodsItem> GoodsItems) {
+    public void addGoodsItems(Collection<GoodsItem> goodsItems, String testCaseId) {
         try {
-            ps = connection.prepareStatement("INSERT INTO test_found_goods VALUES (?,?,?,?,?,?,?,?,?);");
-            for (GoodsItem goodsItem : GoodsItems) {
-                ps.setString(1, goodsItem.getTitle());
-                ps.setString(2, goodsItem.getShortDescription());
-                ps.setDouble(3, goodsItem.getActualPrice());
-                ps.setString(4, goodsItem.getPriceActiveIcon());
-                ps.setString(5, goodsItem.getTitlePromo());
-                ps.setString(6, goodsItem.getReference());
-                ps.setDouble(7, goodsItem.getOldPrice());
-                ps.setString(8, goodsItem.getAdditionalPrice());
-                ps.setString(9, goodsItem.getActualPriceSign());
+            ps = connection.prepareStatement("INSERT INTO test_found_goods VALUES (?,?,?,?,?,?,?,?,?,?);");
+            for (GoodsItem g : goodsItems) {
+                ps.setString(1, g.getTitle());
+                ps.setString(2, g.getShortDescription());
+                ps.setDouble(3, g.getActualPrice());
+                ps.setString(4, g.getPriceActiveIcon());
+                ps.setString(5, g.getTitlePromo());
+                ps.setString(6, g.getReference());
+                ps.setDouble(7, g.getOldPrice());
+                ps.setString(8, g.getAdditionalPrice());
+                ps.setString(9, g.getActualPriceSign());
+                ps.setString(10, testCaseId);
                 ps.addBatch();
             }
             ps.executeBatch();

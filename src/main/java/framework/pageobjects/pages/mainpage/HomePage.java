@@ -1,14 +1,13 @@
 package framework.pageobjects.pages.mainpage;
 
-import framework.pageobjects.pages.BasePage;
-import framework.utils.Wait;
+import framework.pageobjects.PageObject;
 
 import static framework.properties.PropertyLoader.initProperties;
 
-public class HomePage extends BasePage {
+public class HomePage extends PageObject {
 
-    public HomePage(String url) {
-        webDriver.get(url);
+    public HomePage() {
+        webDriver.get(initProperties.url());
         closePopupElementIfPresent();
     }
 }

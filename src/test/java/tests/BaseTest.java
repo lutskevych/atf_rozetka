@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import static framework.properties.PropertyLoader.initProperties;
 
 public class BaseTest {
-    protected HomePage mainPage;
+    protected HomePage homePage;
     protected WebDriver webDriver;
     protected GoodsDAO goodsDAO;
     protected TestedGoodsItemDAO testedGoodsItemDAO;
@@ -26,17 +26,12 @@ public class BaseTest {
         initializeDAO();
     }
 
-    @BeforeMethod
-    public void beforeMethod() {
-        mainPage = new HomePage(initProperties.url());
-    }
-
     @AfterMethod
     public void afterMethod() {
         webDriver.manage().deleteAllCookies();
     }
 
-    @AfterClass
+    @AfterClass (alwaysRun = true)
     public void afterClass() {
         webDriver.quit();
     }
