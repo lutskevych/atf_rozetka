@@ -6,6 +6,8 @@ import framework.pageobjects.components.goodsnavigator.GoodsCategories;
 import framework.pageobjects.pages.goodspage.GoodsItemBlock;
 import framework.pageobjects.pages.goodspage.GoodsPage;
 import framework.pageobjects.pages.mainpage.HomePage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.*;
 import tests.BaseTest;
@@ -13,11 +15,12 @@ import tests.BaseTest;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-
+@Story("Prices on the web page have to match prices in the Data Base")
 public class AllGoodsCategoriesTopSalesTest extends BaseTest {
     GoodsCatalogNavigator goodsCatalogNavigator;
     List<GoodsItem> actualGoodsItems;
 
+    @Description("Opening home page")
     @BeforeClass
     public void openHomePage() {
         testedGoodsItemDAO.deleteAllGoodsItems();

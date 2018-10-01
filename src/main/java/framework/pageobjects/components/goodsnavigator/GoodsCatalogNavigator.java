@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import framework.pageobjects.PageObject;
 import framework.pageobjects.pages.goodspage.GoodsCategoryPage;
 import framework.pageobjects.pages.goodspage.GoodsPage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,7 @@ import static java.lang.String.format;
 public class GoodsCatalogNavigator extends PageObject {
     private WebElement mainGoodsCategoriesMenu;
 
+    @Step("Open goods catalog navigator")
     public GoodsCatalogNavigator openGoodsCatalog() {
         logger.debug("openGoodsCatalog");
         new Actions(webDriver)
@@ -43,6 +45,7 @@ public class GoodsCatalogNavigator extends PageObject {
         return new GoodsCategoryPage();
     }
 
+    @Step("Open sub category with css selector {1} from category {0}")
     public GoodsPage openSubCategory(GoodsCategories goodsCategory, String subCategoryCssSelector) {
         logger.debug(format("openSubCategory {%s} for category %s", subCategoryCssSelector, goodsCategory));
         WebElement subCategory = getSubCategoriesMenu(goodsCategory);
@@ -50,6 +53,7 @@ public class GoodsCatalogNavigator extends PageObject {
         return new GoodsPage();
     }
 
+    @Step("Open sub category menu of {0}")
     private WebElement getSubCategoriesMenu(GoodsCategories goodsCategory) {
         logger.debug(format("getSubCategoriesMenu of %s", goodsCategory));
         new Actions(webDriver)

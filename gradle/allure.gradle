@@ -1,0 +1,10 @@
+allure {
+    version = '2.6.0'
+    autoconfigure = true
+    aspectjweaver = true
+}
+
+task allureLocal {
+    dependsOn 'allureReport'
+    dependsOn 'allureServe'
+}

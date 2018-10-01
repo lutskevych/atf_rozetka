@@ -1,0 +1,19 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    Java enhancement
+    compile group: 'org.aeonbits.owner', name: 'owner-java8', version: '1.0.10'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+//    Selenium
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.53.1'
+//    MySQL DB
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.39'
+//    Test runner and reporting
+    testCompile group: 'org.testng', name: 'testng', version: '6.11'
+    testCompile group: 'org.assertj', name: 'assertj-core-java8', version: '1.0.0m1'
+    compile 'io.qameta.allure:allure-testng:2.6.0'
+//    Logging
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+}
